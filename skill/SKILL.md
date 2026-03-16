@@ -13,7 +13,7 @@ context: AI-assisted product/UX prototyping
 # Prefix-First Design
 
 A session framework for designing with AI tools (Claude, v0, Cursor, etc.)
-Based on lessons from building 15+ AI prototypes since 2024.
+Based on lessons from building AI prototypes since 2024.
 Structurally informed by how prompt caching works in Claude Code.
 
 The core constraint: protect the stable parts so the dynamic parts can move freely.
