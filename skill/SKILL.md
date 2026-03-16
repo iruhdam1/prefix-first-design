@@ -5,7 +5,7 @@ description: >
   A prototyping workflow for AI-assisted design based on the Prefix-First Design framework.
   Helps designers set a stable context base once, explore against it freely,
   and carry decisions forward across sessions and handoffs.
-  Based on lessons from 15+ AI prototypes by Madhuri Maram (madhurimaram.com).
+  Based on lessons from building AI prototypes by Madhuri Maram (madhurimaram.com).
 owner: "[Your name]"
 context: AI-assisted product/UX prototyping
 ---
