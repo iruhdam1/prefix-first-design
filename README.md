@@ -1,6 +1,6 @@
 # Prefix-First Design
 
-A prototyping framework for AI-assisted design — built from 15+ prototypes, named after how prompt caching works.
+A prototyping framework for AI-assisted design and prototyping, named after how prompt caching works.
 
 By [Madhuri Maram](https://madhurimaram.com) · [Read the full article](https://madhuri.substack.com)
 
