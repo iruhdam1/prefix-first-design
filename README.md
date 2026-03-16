@@ -2,7 +2,7 @@
 
 A prototyping framework for AI-assisted design and prototyping, named after how prompt caching works.
 
-By [Madhuri Maram](https://madhurimaram.com) · [Read the full article](https://madhuri.substack.com/p/prefix-first-design-lessons-from)
+By [Madhuri Maram](https://madhurimaram.com) · [Read the full article](https://madhuri.substack.com/p/prefix-first-design-claude-skill)
 
 ---
 
