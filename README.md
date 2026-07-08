@@ -1,20 +1,62 @@
 # Prefix-First Design
 
-A prototyping framework for AI-assisted design and prototyping, named after how prompt caching works.
+**You've explained your user three times today. Twice to the same AI.**
 
-By [Madhuri Maram](https://madhurimaram.com) · [Read the full article](https://madhuri.substack.com/p/prefix-first-design-claude-skill)
+You prototype in Cursor, ship from a repo, and still rebuild context from scratch every session — re-explain the user, re-establish the constraints, watch the output drift from what you meant. The fix isn't better prompts. It's a brief that doesn't move.
+
+Prefix-First Design treats the brief as scaffolding. Set the stable parts once, explore against them freely, carry decisions forward explicitly. The scaffold quality determines what gets built on it.
+
+By [Madhuri Maram](https://madhurimaram.com) · [Read the full article](https://madhurimaram.com/work/ai/patterns/prefix-first)
+
+**What you get:**
+
+- A **brief template** — problem, user, hard constraints, locked decisions. Five fields, one screen.
+- **Session rules for Claude** — it grades your brief before ideating, flags drift when the problem quietly changes, and labels every output EXPLORING or DECIDED.
+- A **close-out ritual** — 60 seconds at session end so tomorrow's session starts where today's stopped.
+
+## Starting fresh? Paste this.
+
+Copy [`skill/SKILL-compact.md`](skill/SKILL-compact.md), fill in the brackets, make it message one in any Claude, v0, or Cursor session. Five minutes before you open a tool; it pays back the first time you *don't* re-explain your user.
+
+## Have a repo? Add this file.
+
+Drop [`skill/SKILL.md`](skill/SKILL.md) into your project — Claude Projects instructions, `.claude/skills/`, or referenced from `CLAUDE.md`. Agents read the brief before touching anything. Decisions travel with the work, not in your head.
+
+**Proof:** [Four concepts in 45 minutes from one brief that never moved →](examples/tone-selector-prefix.md)
 
 ---
 
-## The idea
+## The three rituals
 
-Most designers rebuild context from scratch every AI session. Re-explain the user, re-establish the constraints, re-orient the model. Then wonder why sessions lose coherence or take forever to get somewhere useful.
+**1. Cast the brief** — before you open Figma or Cursor, write down what isn't allowed to change: the user problem, the real constraints, the principles you're optimising for. If you can't fill in the brief, *that's* the design problem — solve it first.
 
-Prompt caching in Claude Code works on a simple rule: cache the stable parts, vary only what needs to vary. Change anything in the cached prefix and you pay full cost again.
+**2. Ship the decisions** — when work lives in a repo, the brief lives there too. A page ledger, a decision log — whatever form, agents and teammates read it before changing anything. At Aampe, I run a [playground of shipped internal tools](https://madhuri.substack.com/p/building-an-app-playground-using-claude-replit) this way: when I asked an agent to fix a CTA gap on the Relay page, it read the page ledger first and didn't re-litigate a footer decision from three sessions ago. The ledger did the arguing for me. ([How that working setup looks day to day →](https://madhuri.substack.com/p/designing-with-ai-agent-aampe))
 
-Prefix-First Design applies the same rule to design sessions.
+**3. Check it still holds** — live products drift. Once a month, 20 minutes, three questions: Is the brief still true? Did anything ship that contradicts a locked decision? What did we learn that should *become* a locked decision? One dated entry in a `still-holds.md` log. That's the whole ritual. (It's how [tinydesignshop.com](https://tinydesignshop.com) stays coherent across agent sessions.)
 
-Set the base once. Explore against it freely. Carry decisions forward explicitly. Never rebuild what you've already established.
+---
+
+## Inside a session
+
+All ideation runs against the stable brief. Go wide — multiple directions, divergent concepts. Everything is labeled:
+
+- **EXPLORING** — ideas being tested against the brief
+- **DECIDED** — locked; the next phase builds on it
+
+If exploration reveals the brief was wrong, stop and update it out loud. Never quietly revise the problem mid-session — that's how a working prototype ends up answering a question nobody asked.
+
+## Closing a session
+
+End with a session close-out. Here's a real one:
+
+> **Session close-out — Dec 12 — Tone selector, concept round**
+>
+> - **Locked:** Primary interaction is a tone selector, not a freeform prompt. Users pick presets, they don't write instructions.
+> - **Explored, not locked:** Spider-chart tone analysis — promising, needs a real copy dataset.
+> - **Open for next session:** Does intensity need its own control, or is it a tone property?
+> - **Brief changes:** none. It held.
+
+Paste it into the next session's brief as WHAT HAS ALREADY BEEN DECIDED. The empty template is in [`skill/SKILL.md`](skill/SKILL.md).
 
 ---
 
@@ -22,67 +64,19 @@ Set the base once. Explore against it freely. Carry decisions forward explicitly
 
 ```
 prefix-first-design/
-├── README.md                          — this file
+├── README.md                       — this file
 ├── skill/
-│   ├── SKILL.md                       — full skill file for Claude Projects
-│   └── SKILL-compact.md               — lightweight version for single sessions
+│   ├── SKILL.md                    — full skill: session rules + brief template + close-out
+│   └── SKILL-compact.md            — single-session version, paste as message one
 └── examples/
-    └── tone-selector-prefix.md        — filled prefix example from real work
+    ├── tone-selector-prefix.md     — a real filled brief and what it enabled
+    └── still-holds-template.md     — the monthly three-question check
 ```
 
 ---
 
-## How to use
+*Why "prefix"? Prompt caching keeps the stable part of the context — the prefix — and only reprocesses what changes. Change the prefix, pay full cost again. Same rule, applied to design sessions. That's the whole metaphor; you never need to think about it again.*
 
-### Option A — Claude Project (recommended)
+Framework by [Madhuri Maram](https://madhurimaram.com) — named after a prompt-caching idea, built from 15+ shipped prototypes.
 
-1. Open or create a Claude Project at claude.ai
-2. Go to Project Instructions
-3. Copy the contents of `skill/SKILL.md`
-4. Paste it as your project instruction
-5. Start every session by filling in the prefix template and sending it as your first message
-
-Claude will hold your prefix as the session base, flag when the conversation drifts from it, label outputs as EXPLORING or DECIDED, and close every session with a Breakpoint Summary.
-
-### Option B — Single session
-
-1. Copy the contents of `skill/SKILL-compact.md`
-2. Fill in the bracketed fields
-3. Paste it as the first message in any Claude, v0, or Cursor session
-
----
-
-## The five steps
-
-**1. Cast the Prefix** — Write down what isn't allowed to change before you open any tool: the user problem, real constraints, design principles. Set it once.
-
-**2. Lay Breakpoints** — When you make a decision mid-session, lock it into the prefix explicitly. Not as a note — as a constraint the next phase builds on.
-
-**3. Explore in Messages** — All ideation runs against the stable base. If exploration reveals the prefix was wrong, that's a new session, not a quiet edit.
-
-**4. Fork With Context** — Every handoff carries the prefix forward. A prototype without its problem frame is just a screen.
-
-**5. Test the Prefix** — Before testing with users, ask: does this still match what we said was true at the start? A broken prefix is more valuable than a broken interaction.
-
----
-
-## Versions
-
-| File | Use for |
-|------|---------|
-| `skill/SKILL.md` | Claude Projects — paste as project instruction |
-| `skill/SKILL-compact.md` | Individual sessions — paste as first message |
-
----
-
-## Credits
-
-Framework by [Madhuri Maram](https://madhurimaram.com)  
-Structurally informed by [Claude Code's prompt caching architecture](https://www.anthropic.com)  
-Version 2.0.0
-
----
-
-## Licence
-
-MIT — copy, adapt, use freely. Attribution appreciated but not required.
+Version 2.1.0 · MIT — copy, adapt, use freely. Attribution appreciated but not required.

@@ -6,44 +6,49 @@ Fill in the brackets before sending. Takes under 2 minutes.
 ---
 
 ```
-# Prefix-First Design — Session Base
+# Prefix-First Design — Session Brief
 
-PROBLEM FRAME: [1–2 sentences. What user problem are we solving?]
-USER: [1–2 sentences. Who is this for and what are they trying to do?]
-CONSTRAINTS: 
-  - [Hard constraint 1]
+PROBLEM FRAME: [1–2 sentences. What user problem are we solving? No solution language.]
+USER: [1–2 sentences. A real person mid-task, not a persona.]
+CONSTRAINTS:
+  - [Hard constraint 1 — genuinely not allowed to change]
   - [Hard constraint 2]
 PRINCIPLES:
+  - [What we're optimising for — must be able to say no to an idea]
   - [What we're optimising for]
-  - [What we're optimising for]
-DECIDED: [Prior decisions this session builds on, or "none yet"]
+DECIDED: [Locked decisions this session builds on, or "none yet"]
 
 Instructions:
-- Hold this prefix as the stable base for this session.
+- Grade this brief before ideating. If the problem frame contains a solution,
+  the user is a vague persona, or the constraints are preferences — say so
+  and help me fix it before generating anything.
+- Then hold the brief as the stable base for this session.
 - Do not suggest solutions that contradict it without flagging first.
-- Label outputs as EXPLORING or DECIDED.
-- End the session with a Breakpoint Summary.
+- If the conversation drifts from the brief, stop and name what changed
+  before producing more output.
+- Label all outputs as EXPLORING or DECIDED.
+- End the session with a Session Close-out.
 ```
 
 ---
 
-## Breakpoint Summary (run at end of session)
+## Session Close-out (run at end of session)
 
 Copy this, fill it in, paste into the next session as DECIDED.
 
 ```
-BREAKPOINT SUMMARY — [Date]
+SESSION CLOSE-OUT — [Date]
 
 Problem frame: [current version]
 User: [current version]
 Constraints: [current version]
 Principles: [current version]
 
-Decided this session:
+Locked this session:
   - [Decision 1]
   - [Decision 2]
 
-Explored but not decided:
+Explored but not locked:
   - [Idea 1]
 
 Open questions:
@@ -52,4 +57,4 @@ Open questions:
 
 ---
 
-For the full skill file with failure modes and workflow steps, see `skill/SKILL.md`.
+For the full skill with the three rituals and failure modes, see `skill/SKILL.md`.

@@ -1,22 +1,23 @@
 ---
 name: prefix-first-design
-version: 2.0.0
+version: 2.1.0
 description: >
-  A prototyping workflow for AI-assisted design based on the Prefix-First Design framework.
-  Helps designers set a stable context base once, explore against it freely,
-  and carry decisions forward across sessions and handoffs.
-  Based on lessons from building AI prototypes by Madhuri Maram (madhurimaram.com).
+  A session framework for AI-assisted product design based on Prefix-First Design.
+  Helps designer-builders cast a stable brief once, explore against it freely,
+  ship decisions with the work, and check that the brief still holds as products live on.
+  Built from 15+ shipped prototypes by Madhuri Maram (madhurimaram.com).
 owner: "[Your name]"
-context: AI-assisted product/UX prototyping
+context: AI-assisted product/UX prototyping and shipping
 ---
 
 # Prefix-First Design
 
-A session framework for designing with AI tools (Claude, v0, Cursor, etc.)
-Based on lessons from building AI prototypes since 2024.
-Structurally informed by how prompt caching works in Claude Code.
+A session framework for designing and shipping with AI tools (Claude, v0, Cursor, agents).
+The brief is the scaffold: protect the stable parts so the dynamic parts can move freely.
+The scaffold quality determines what gets built on it.
 
-The core constraint: protect the stable parts so the dynamic parts can move freely.
+Vocabulary: the **brief** is the stable base (the "prefix"). A **locked decision** is one
+the next phase builds on. The **session close-out** is the decision ledger you carry forward.
 
 ---
 
@@ -26,7 +27,8 @@ Activate when a user:
 - Shares a problem frame and asks to prototype or explore design directions
 - Opens a new design session and needs to establish context
 - Is mid-session and losing coherence or repeating context
-- Is handing off work to a developer, stakeholder, or new session
+- Is handing off work to a developer, stakeholder, agent, or new session
+- Is working in a repo that contains a brief, page ledger, or decision log
 
 Do not activate for one-off questions, quick edits, or tasks with no
 stated product or user context.
@@ -35,29 +37,60 @@ stated product or user context.
 
 ## Instructions for Claude
 
-**Treat the prefix as infrastructure.**
+### Grade the brief before you build on it
+
+When the user shares a brief (or you find one in the repo), check it before ideating.
+Be a warm roast, not a bureaucrat — one short pass, specific, then move on.
+
+Check each field:
+
+- **PROBLEM FRAME contains a solution.** "A dashboard that shows…" is not a problem —
+  it's a feature request wearing a trench coat. Say so, and ask what the user can't do today.
+- **USER is a persona, not a person.** "Busy professionals" holds nothing. Ask for one real
+  detail: what do they already know, what are they in the middle of doing?
+- **CONSTRAINTS are preferences.** "Should feel modern" is taste, not a constraint.
+  Keep only what is genuinely not allowed to change — technical, business, scope.
+- **PRINCIPLES don't filter.** If a principle couldn't reject any idea, it's decoration.
+  Ask: what would this principle say no to?
+
+If two or more fields fail, do not ideate yet. Say what's vague, why exploring against it
+would waste the session, and offer to fix the brief together first. A sharpened brief is
+the first deliverable, not a delay.
+
+If the brief is solid, say so in one line and start.
+
+### Treat the brief as infrastructure
+
 Never suggest solutions that contradict the stated problem frame or constraints
 without explicitly flagging the conflict first.
 
-**Ask before drifting.**
-If the conversation moves away from the prefix, pause and ask:
-"This seems to go beyond the prefix — should we update it or keep exploring within it?"
+### Stop at drift — name it, don't ride it
 
-**Separate exploration from decisions.**
+If the conversation moves away from the brief, stop before producing more output.
+Name exactly what changed: "We started with [X]; this direction assumes [Y]."
+Then make the user choose: update the brief deliberately, or return to it.
+Never quietly follow the drift — a prototype that answers a different question
+than the brief asked is the most expensive kind of progress.
+
+### Separate exploration from decisions
+
 Label outputs clearly:
-- EXPLORING — ideas being tested against the prefix
-- DECIDED — something ready to be added to the prefix for the next session
+- EXPLORING — ideas being tested against the brief
+- DECIDED — locked; added to the brief for the next phase to build on
 
-**Flag repeated context.**
-If the user re-explains something already in the prefix, note it:
-"You've already set this in the prefix — should I update it or use what's there?"
+### Flag repeated context
 
-**End every session with a Breakpoint Summary.**
-Before closing, output the Breakpoint Summary template from Section 3.
+If the user re-explains something already in the brief, note it:
+"That's already in the brief — should I update it or use what's there?"
+Repeated context is a signal the brief is too vague to hold. Offer to sharpen it.
+
+### End every session with a close-out
+
+Before closing, output the Session Close-out template from Section 3.
 
 ---
 
-## Section 1 — The Prefix Template
+## Section 1 — The Brief Template
 
 This is the stable base. Set it once. Do not rewrite it mid-session.
 If something here turns out to be wrong, stop, update it deliberately,
@@ -82,73 +115,83 @@ What are we optimising for in this product?
 
 WHAT HAS ALREADY BEEN DECIDED
 What decisions are load-bearing going into this session?
-[Decisions from prior sessions that the current session builds on.]
+[Locked decisions from prior sessions that the current session builds on.]
 ```
 
 ---
 
-## Section 2 — Workflow Steps
+## Section 2 — The Three Rituals
 
-### Step 1 — Cast the Prefix
+### Ritual 1 — Cast the brief (before any tool)
+
 Fill in Section 1 completely before generating anything.
 If you can't fill it in, that is the design problem to solve first.
 
 Prompt to use:
-> "Here is my prefix. Hold this as the base for this session."
+> "Here is my brief. Grade it, then hold it as the base for this session."
 
-### Step 2 — Lay Breakpoints as You Decide
-When a decision gets made mid-session, add it to WHAT HAS ALREADY BEEN DECIDED.
-A breakpoint is a decision the next phase builds on — not a note, not a maybe.
+As you work, lock decisions the moment they're made:
+> "We've decided [X]. Lock it into the brief."
 
-Prompt to use:
-> "We've decided [X]. Add this to the prefix as a breakpoint."
+A locked decision is one the next phase builds on — not a note, not a maybe.
 
-### Step 3 — Explore in Messages
-Run all ideation against the stable prefix.
-Go wide — multiple directions, divergent concepts, variations.
-If an exploration reveals the prefix was wrong, stop and update it explicitly.
-Do not quietly revise the problem frame mid-session.
+Run all ideation against the stable brief. Go wide — multiple directions,
+divergent concepts, variations. If an exploration reveals the brief was wrong,
+stop and update it explicitly. Do not quietly revise the problem frame mid-session.
 
-Prompt to use:
-> "Explore [X] against the current prefix. Don't change the problem frame."
+> "Explore [X] against the current brief. Don't change the problem frame."
 
-### Step 4 — Fork With Context
-Every handoff — to a developer, a stakeholder, another Claude session —
-carries the prefix forward, not just the artifact.
+### Ritual 2 — Ship the decisions (when work lives in a repo)
+
+The brief doesn't stay in the chat — it ships with the work. Keep a brief file,
+page ledger, or decision log in the repo, and read it before changing anything.
+Decisions travel with the work, not in anyone's head.
+
+Every handoff — to a developer, a stakeholder, an agent, another session —
+carries the brief forward, not just the artifact. A prototype without its
+problem frame is just a screen.
 
 Prompt to use:
 > "Prepare a handoff block for [developer / next session / stakeholder].
->  Include the current prefix, decisions made, and open questions."
+>  Include the current brief, locked decisions, and open questions."
 
-### Step 5 — Test the Prefix, Not Just the Prototype
-Before testing with users, ask: does this still match what we said was true at the start?
-If not, that is the finding — not a failure, but a signal to update the base.
+### Ritual 3 — Check it still holds (for live products)
 
-Prompt to use:
-> "Review what we've built against the prefix. What has held?
+Live products drift away from their briefs. Once a month, 20 minutes, three questions:
+
+1. Is the brief still true? (Have the users or constraints changed?)
+2. Did anything ship that contradicts a locked decision?
+3. What did we learn that should become a locked decision?
+
+Log one dated entry in a `still-holds.md` file (template in `examples/`).
+Before testing with users, apply the same check: does this still match what we
+said was true at the start? If not, that is the finding — a broken brief is
+more valuable than a broken interaction.
+
+> "Review what we've built against the brief. What has held?
 >  What does this reveal about the problem frame?"
 
 ---
 
-## Section 3 — Breakpoint Summary Template
+## Section 3 — Session Close-out Template
 
-Run this at the end of every session.
-Paste it into the next session's prefix as WHAT HAS ALREADY BEEN DECIDED.
+Run this at the end of every session. It is the decision ledger.
+Paste it into the next session's brief as WHAT HAS ALREADY BEEN DECIDED.
 
 ```
-BREAKPOINT SUMMARY — [Date] — [Session name or goal]
+SESSION CLOSE-OUT — [Date] — [Session name or goal]
 
-Prefix state at close:
+Brief state at close:
   Problem frame: [current version]
   User: [current version]
   Constraints: [current version]
   Principles: [current version]
 
-Decisions made this session (add to prefix):
+Locked this session (add to brief):
   - [Decision 1]
   - [Decision 2]
 
-Explored but not decided (do not carry forward as constraints):
+Explored but not locked (do not carry forward as constraints):
   - [Idea 1]
   - [Idea 2]
 
@@ -156,42 +199,40 @@ Open questions for next session:
   - [Question 1]
   - [Question 2]
 
-Prefix changes made:
-  - [What changed and why]
+Brief changes made:
+  - [What changed and why — or "none. It held."]
 ```
 
 ---
 
 ## Section 4 — Common Failure Modes
 
-A "cache miss" in this framework means a moment where context was lost
-or had to be repeated unnecessarily — the design equivalent of paying
-full cost when you shouldn't have to.
-
 **You re-explained the user in message 4.**
-The prefix was too vague to hold. Go back to Section 1, make the user
-description more specific, mark it as a breakpoint.
+The brief was too vague to hold. Go back to Section 1, make the user
+description more specific, lock it in.
 
 **The exploration quietly changed the problem frame.**
-Stop. Name what changed. Decide: new session or prefix update?
+Stop. Name what changed. Decide: new session or brief update?
 Either is fine — but make it explicit before continuing.
 
 **You handed off the artifact without the context.**
 Use the handoff block prompt before the next session starts.
-The prefix must travel with the work, not separately from it.
+The brief must travel with the work, not separately from it.
 
 **The session got long and coherence dropped.**
-Summarise decisions made into a new Breakpoint Summary, open a new session,
-paste it in as the prefix.
+Summarise decisions made into a new Session Close-out, open a new session,
+paste it in as the brief.
 
 **Something doesn't work in testing but you're not sure if it's
 the interaction or the problem frame.**
-Test the prefix first. Ask a user: "Does this match the problem you
+Test the brief first. Ask a user: "Does this match the problem you
 actually have?" before asking "Can you complete this task?"
 
 ---
 
 ## Credits
 
-Framework by Madhuri Maram
-madhurimaram.com
+Framework by Madhuri Maram — madhurimaram.com
+Named after a prompt-caching idea: the prefix is the part of the context that
+doesn't change, and changing it means paying full cost again. Same rule, applied
+to design sessions.
