@@ -12,7 +12,7 @@ context: AI-assisted product/UX prototyping and shipping
 
 # Prefix-First Design
 
-A session framework for designing and shipping with AI tools (Claude, v0, Cursor, agents).
+A session framework for designing and shipping with AI tools (Cursor, v0, ChatGPT, agents).
 The brief is the scaffold: protect the stable parts so the dynamic parts can move freely.
 The scaffold quality determines what gets built on it.
 
@@ -48,7 +48,7 @@ stated product or user context.
 
 ---
 
-## Instructions for Claude
+## Instructions for the agent
 
 ### Start by reading
 

@@ -11,14 +11,14 @@ By [Madhuri Maram](https://madhurimaram.com) · [Read the full article](https://
 **What you get:**
 
 - A **brief template** — problem, user, hard constraints, locked decisions. Five fields, one screen.
-- **Session rules for Claude** — it grades your brief before ideating, flags drift when the problem quietly changes, and labels every output EXPLORING or DECIDED.
+- **Session rules for agents** — grade the brief before ideating, flag drift when the problem quietly changes, and label every output EXPLORING or DECIDED.
 - A **two-reader close-out** — human skim + next-agent instructions, so tomorrow's session starts where today's stopped.
 
 ## Light path vs full path
 
-**Light path** — one session. Copy [`skill/SKILL-compact.md`](skill/SKILL-compact.md), fill in the brackets, make it message one in any Claude, v0, or Cursor session. Five minutes before you open a tool; it pays back the first time you *don't* re-explain your user.
+**Light path** — one session. Copy [`skill/SKILL-compact.md`](skill/SKILL-compact.md), fill in the brackets, make it message one in any Cursor, v0, ChatGPT, or agent session. Five minutes before you open a tool; it pays back the first time you *don't* re-explain your user.
 
-**Full path** — work that lives in a repo. Drop [`skill/SKILL.md`](skill/SKILL.md) into your project — Claude Projects instructions, `.claude/skills/`, or referenced from `CLAUDE.md`. Keep a brief, page ledger, or decision log with the work. Agents start by reading it. Once a month, run the still-holds check.
+**Full path** — work that lives in a repo. Drop [`skill/SKILL.md`](skill/SKILL.md) into your project — agent instructions, a skills folder, or referenced from your project guide (`AGENTS.md` or equivalent). Keep a brief, page ledger, or decision log with the work. Agents start by reading it. Once a month, run the still-holds check.
 
 Same brief. Same rules. Different weight.
 

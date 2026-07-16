@@ -1,6 +1,6 @@
 # Prefix-First Design — Compact Version (light path)
 
-For pasting into individual sessions (Claude, v0, Cursor, etc.)
+For pasting into individual sessions (Cursor, v0, ChatGPT, agents, etc.)
 Fill in the brackets before sending. Takes under 2 minutes.
 
 For repo work that stacks across sessions, use the full skill (`skill/SKILL.md`)
