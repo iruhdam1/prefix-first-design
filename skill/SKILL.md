@@ -1,6 +1,6 @@
 ---
 name: prefix-first-design
-version: 2.1.0
+version: 2.2.0
 description: >
   A session framework for AI-assisted product design based on Prefix-First Design.
   Helps designer-builders cast a stable brief once, explore against it freely,
@@ -17,7 +17,20 @@ The brief is the scaffold: protect the stable parts so the dynamic parts can mov
 The scaffold quality determines what gets built on it.
 
 Vocabulary: the **brief** is the stable base (the "prefix"). A **locked decision** is one
-the next phase builds on. The **session close-out** is the decision ledger you carry forward.
+the next phase builds on. The **session close-out** is the decision ledger you carry forward —
+written for two readers: you (skim) and the next agent (instructions).
+
+---
+
+## Light path vs full path
+
+- **Light path** — paste [`SKILL-compact.md`](SKILL-compact.md) as message one. One session,
+  one brief, close-out at the end. Use for exploration days and throwaway prototypes.
+- **Full path** — this file in the repo, plus a brief / page ledger / decision log that ships
+  with the work, plus monthly still-holds for live products. Use when sessions stack and
+  the product has to stay coherent.
+
+Same brief. Same rules. Different weight.
 
 ---
 
@@ -36,6 +49,17 @@ stated product or user context.
 ---
 
 ## Instructions for Claude
+
+### Start by reading
+
+Before generating anything, read what already exists:
+
+- The last session close-out (if the human pasted one, or it lives in the repo)
+- The brief, page ledger, or decision log if the project has one
+
+Mirror the state in 2–3 plain lines: where things stand, what's locked, what needs
+the human before work starts. Then confirm direction. Do not draft or build until
+the brief is held.
 
 ### Grade the brief before you build on it
 
@@ -57,12 +81,42 @@ If two or more fields fail, do not ideate yet. Say what's vague, why exploring a
 would waste the session, and offer to fix the brief together first. A sharpened brief is
 the first deliverable, not a delay.
 
-If the brief is solid, say so in one line and start.
+If the brief is solid, say so in one line. Optionally run the frame pass (below), then start.
+
+### Optional frame pass (after a solid brief)
+
+Grading checks whether the brief is sharp. The frame pass asks what the brief left open —
+the questions the designer didn't know to ask.
+
+Only run it when an answer would change scope, sequencing, taste, or priorities.
+Hard cap: 3–5 questions. If nothing meets that bar, say so in one line and skip.
+
+1. **Blindspot brief** — a few sentences on what good looks like in this domain, what this
+   project has already decided, and the known potholes. Unknown unknowns, not a plan summary.
+2. **Interview** — one question at a time, ordered by blast radius (biggest plan change first).
+   Anchor each question to the brief. Offer concrete options and mark a recommendation.
+3. **Fold** — write answers into the brief (or ledger) in place. Add taste checkpoints when
+   the human will need to eyeball something at verification time.
+
+Prompt to use:
+> "Brief graded. Run a frame pass — only questions that would change what we build."
 
 ### Treat the brief as infrastructure
 
 Never suggest solutions that contradict the stated problem frame or constraints
 without explicitly flagging the conflict first.
+
+### Deviation vs drift
+
+Not every departure is a brief crisis.
+
+- **Deviation** — an implementation detail that still serves the same problem frame and
+  locked decisions. Log it (in the close-out or ledger) and continue.
+- **Drift** — the conversation or the build starts answering a different problem, or
+  quietly overturns a locked decision. Stop. Name what changed. Make the user choose:
+  update the brief deliberately, or return to it.
+
+Never quietly follow drift. Never treat every pixel change as drift.
 
 ### Stop at drift — name it, don't ride it
 
@@ -175,11 +229,17 @@ more valuable than a broken interaction.
 
 ## Section 3 — Session Close-out Template
 
-Run this at the end of every session. It is the decision ledger.
-Paste it into the next session's brief as WHAT HAS ALREADY BEEN DECIDED.
+Run this at the end of every session. It is the decision ledger for two readers:
+the human skims the top; the next session's agent follows the bottom.
+
+Paste the whole block into the next session (or leave it in the repo). The next
+agent starts by reading it — see Start by reading.
 
 ```
-SESSION CLOSE-OUT — [Date] — [Session name or goal]
+## Session close-out — [Date] — [Session name or goal]
+
+[One short paragraph for the human: what this session focused on, what's left,
+and the recommended focus next time. Plain English. No file dumps.]
 
 Brief state at close:
   Problem frame: [current version]
@@ -195,12 +255,29 @@ Explored but not locked (do not carry forward as constraints):
   - [Idea 1]
   - [Idea 2]
 
+Deviations logged (same brief, different implementation detail):
+  - [Deviation — or "none"]
+
 Open questions for next session:
   - [Question 1]
   - [Question 2]
 
 Brief changes made:
   - [What changed and why — or "none. It held."]
+
+---
+
+**For the next agent:**
+
+1. Start by reading this close-out and any brief / page ledger / decision log in the repo.
+2. Mirror state in 2–3 lines, then hold the brief. Do not build until the brief is held.
+3. Recommended focus: **[one phrase]**
+4. Agent-doable without the human:
+   - [Item — or "None"]
+5. Needs the human — do not pick up unsupervised:
+   - [Item — or "None"]
+6. Out of scope:
+   - [Item — or "None"]
 ```
 
 ---
@@ -215,8 +292,12 @@ description more specific, lock it in.
 Stop. Name what changed. Decide: new session or brief update?
 Either is fine — but make it explicit before continuing.
 
+**You treated every implementation detail as drift.**
+Log a deviation and continue when the problem frame still holds.
+Reserve the stop for real drift — a different problem or a broken lock.
+
 **You handed off the artifact without the context.**
-Use the handoff block prompt before the next session starts.
+Use the two-reader close-out before the next session starts.
 The brief must travel with the work, not separately from it.
 
 **The session got long and coherence dropped.**

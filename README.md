@@ -12,15 +12,15 @@ By [Madhuri Maram](https://madhurimaram.com) · [Read the full article](https://
 
 - A **brief template** — problem, user, hard constraints, locked decisions. Five fields, one screen.
 - **Session rules for Claude** — it grades your brief before ideating, flags drift when the problem quietly changes, and labels every output EXPLORING or DECIDED.
-- A **close-out ritual** — 60 seconds at session end so tomorrow's session starts where today's stopped.
+- A **two-reader close-out** — human skim + next-agent instructions, so tomorrow's session starts where today's stopped.
 
-## Starting fresh? Paste this.
+## Light path vs full path
 
-Copy [`skill/SKILL-compact.md`](skill/SKILL-compact.md), fill in the brackets, make it message one in any Claude, v0, or Cursor session. Five minutes before you open a tool; it pays back the first time you *don't* re-explain your user.
+**Light path** — one session. Copy [`skill/SKILL-compact.md`](skill/SKILL-compact.md), fill in the brackets, make it message one in any Claude, v0, or Cursor session. Five minutes before you open a tool; it pays back the first time you *don't* re-explain your user.
 
-## Have a repo? Add this file.
+**Full path** — work that lives in a repo. Drop [`skill/SKILL.md`](skill/SKILL.md) into your project — Claude Projects instructions, `.claude/skills/`, or referenced from `CLAUDE.md`. Keep a brief, page ledger, or decision log with the work. Agents start by reading it. Once a month, run the still-holds check.
 
-Drop [`skill/SKILL.md`](skill/SKILL.md) into your project — Claude Projects instructions, `.claude/skills/`, or referenced from `CLAUDE.md`. Agents read the brief before touching anything. Decisions travel with the work, not in your head.
+Same brief. Same rules. Different weight.
 
 **Proof:** [Four concepts in 45 minutes from one brief that never moved →](examples/tone-selector-prefix.md)
 
@@ -28,7 +28,7 @@ Drop [`skill/SKILL.md`](skill/SKILL.md) into your project — Claude Projects in
 
 ## The three rituals
 
-**1. Cast the brief** — before you open Figma or Cursor, write down what isn't allowed to change: the user problem, the real constraints, the principles you're optimising for. If you can't fill in the brief, *that's* the design problem — solve it first.
+**1. Cast the brief** — before you open Figma or Cursor, write down what isn't allowed to change: the user problem, the real constraints, the principles you're optimising for. If you can't fill in the brief, *that's* the design problem — solve it first. After the brief grades clean, an optional **frame pass** asks up to five questions that would actually change what you build — then folds the answers back into the brief.
 
 **2. Ship the decisions** — when work lives in a repo, the brief lives there too. A page ledger, a decision log — whatever form, agents and teammates read it before changing anything. At Aampe, I run a [playground of shipped internal tools](https://madhuri.substack.com/p/building-an-app-playground-using-claude-replit) this way: when I asked an agent to fix a CTA gap on the Relay page, it read the page ledger first and didn't re-litigate a footer decision from three sessions ago. The ledger did the arguing for me. ([How that working setup looks day to day →](https://madhuri.substack.com/p/designing-with-ai-agent-aampe))
 
@@ -38,25 +38,31 @@ Drop [`skill/SKILL.md`](skill/SKILL.md) into your project — Claude Projects in
 
 ## Inside a session
 
+Start by reading the last close-out and any brief or ledger in the repo. Mirror state in a few lines. Then hold the brief.
+
 All ideation runs against the stable brief. Go wide — multiple directions, divergent concepts. Everything is labeled:
 
 - **EXPLORING** — ideas being tested against the brief
 - **DECIDED** — locked; the next phase builds on it
 
-If exploration reveals the brief was wrong, stop and update it out loud. Never quietly revise the problem mid-session — that's how a working prototype ends up answering a question nobody asked.
+**Deviation vs drift:** an implementation detail that still serves the same problem can be logged and continued. A quiet change to the problem frame or a locked decision is drift — stop, name it, choose. Never quietly revise the problem mid-session — that's how a working prototype ends up answering a question nobody asked.
 
 ## Closing a session
 
-End with a session close-out. Here's a real one:
+End with a two-reader close-out. Top half for you. Bottom half for the next agent (recommended focus, what's agent-doable, what needs you, what's out of scope). Here's the shape:
 
 > **Session close-out — Dec 12 — Tone selector, concept round**
 >
-> - **Locked:** Primary interaction is a tone selector, not a freeform prompt. Users pick presets, they don't write instructions.
-> - **Explored, not locked:** Spider-chart tone analysis — promising, needs a real copy dataset.
-> - **Open for next session:** Does intensity need its own control, or is it a tone property?
+> Concept round against a fixed brief. Next: intensity control — property or separate?
+>
+> - **Locked:** Primary interaction is a tone selector, not a freeform prompt.
+> - **Explored, not locked:** Spider-chart tone analysis — needs a real copy dataset.
+> - **Open:** Does intensity need its own control?
 > - **Brief changes:** none. It held.
+>
+> **For the next agent:** Start by reading this close-out. Hold the brief before building. Recommended focus: **intensity control**. Needs the human: taste call on intensity. Out of scope: freeform prompt.
 
-Paste it into the next session's brief as WHAT HAS ALREADY BEEN DECIDED. The empty template is in [`skill/SKILL.md`](skill/SKILL.md).
+The empty template is in [`skill/SKILL.md`](skill/SKILL.md).
 
 ---
 
@@ -66,8 +72,8 @@ Paste it into the next session's brief as WHAT HAS ALREADY BEEN DECIDED. The emp
 prefix-first-design/
 ├── README.md                       — this file
 ├── skill/
-│   ├── SKILL.md                    — full skill: session rules + brief template + close-out
-│   └── SKILL-compact.md            — single-session version, paste as message one
+│   ├── SKILL.md                    — full path: session rules + brief + two-reader close-out
+│   └── SKILL-compact.md            — light path: paste as message one
 └── examples/
     ├── tone-selector-prefix.md     — a real filled brief and what it enabled
     └── still-holds-template.md     — the monthly three-question check
@@ -79,4 +85,4 @@ prefix-first-design/
 
 Framework by [Madhuri Maram](https://madhurimaram.com) — named after a prompt-caching idea, built from 15+ shipped prototypes.
 
-Version 2.1.0 · MIT — copy, adapt, use freely. Attribution appreciated but not required.
+Version 2.2.0 · MIT — copy, adapt, use freely. Attribution appreciated but not required.
